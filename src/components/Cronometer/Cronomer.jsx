@@ -100,7 +100,7 @@ function Cronometer() {
                     type="tel"
                     pattern="^-?[0-9]\d*\.?\d*$"
                     value={tiempoLimite}
-                    onChange={(e) => setTiempoLimite(e.target.value, 'seg')}
+                    onChange={(e) => setTiempoLimite(e.target.value, 'seconds')}
                 />
             </label>
             {seg >= tiempoLimite && (
