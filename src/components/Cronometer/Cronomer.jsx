@@ -78,16 +78,16 @@ function Cronometer() {
             <label>
                 Limit time to show alert (hour):
                 <input
-                    type="number"
+                    type="text"
                     pattern="^-?[0-9]\d*\.?\d*$"
-                    value={tiempoLimite}
+                    value={displayAlert.h}
                     onChange={(e) => alert(e.target.value, 'hours')}
                 />
             </label>
             <label>
                 Limit time to show alert (minutes):
                 <input
-                    type="number"
+                    type="text"
                     id='minutes'
                     pattern="^-?[0-9]\d*\.?\d*$"
                     value={displayAlert.m}
@@ -97,9 +97,9 @@ function Cronometer() {
             <label>
                 Limit time to show alert (seg):
                 <input
-                    type="tel"
+                    type="text"
                     pattern="^-?[0-9]\d*\.?\d*$"
-                    value={tiempoLimite}
+                    value={displayAlert.s}
                     onChange={(e) => setTiempoLimite(e.target.value, 'seconds')}
                 />
             </label>
