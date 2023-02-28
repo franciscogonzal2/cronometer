@@ -1,11 +1,14 @@
 import './App.css';
 import Cronometer from './components/Cronometer/Cronomer';
+import style from './App.css';
 
 
 function App() {
   return (
-      <Cronometer />
-  );
+    <div className={style.container}>
+ <Cronometer />
+    </div>
+       );
 }
 
 export default App;

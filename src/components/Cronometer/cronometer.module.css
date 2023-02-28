@@ -1,48 +1,100 @@
-.title{
-    color: white;
+.title {
+    color: #2fe64b;
     text-align: center;
 }
-.container{
+
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     border: 2px solid green;
     max-width: 50%;
+    top: 25%;
+    left: 25%;
+    position: absolute;
     padding: 3rem;
-    margin: 20rem;
     border-radius: 2rem;
     background-color: gray;
     min-width: 30%;
 }
-.controler{
+
+.controler {
     display: flex;
     flex-direction: row;
 }
-.initstop{
-     margin-right: 2rem;
-     border: 1px solid green;
-     border-radius: 2rem;
+
+.initstop {
+    margin-right: 2rem;
+    border: 1px solid #2fe64b;
+    border-radius: 2rem;
 }
-.initstop:hover{
+
+.initstop:hover {
     border: 2px solid white;
     cursor: pointer;
 }
-.reload{
-    border: 1px solid green;
+
+.reload {
+    border: 1px solid #2fe64b;
     border-radius: 2rem
 }
-.reload:hover{
+
+.reload:hover {
     border: 2px solid white;
     cursor: pointer;
 }
 
-.buttons{
-    color: green;
+.buttons {
+    color: #2fe64b;
     width: 20rem;
     height: 5rem;
-    
+
 }
 
-.buttons:hover{
+.buttons:hover {
     color: white;
+}
+.form{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin: 2rem 0 1rem 0; 
+    height: 5rem;   
+}
+.label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.text {
+    color: #2fe64b;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 0.5px solid #000000;
+    background-color: azure;
+    height: 1rem;
+    width: 10rem;
+    margin-top: 1rem;
+}
+.input:focus{
+    border: 1px solid #2fe64b;
+}
+
+.titleTime{
+    height: 1rem;
+    margin-top: 1rem;
+}
+.timernumber{
+    color: #2fe64b;
+    font-size: 4rem;
+    font-family: initial;
+    width: 16rem;
 }

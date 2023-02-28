@@ -1,15 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import style from './cronometer.module.css';
 import { VscDebugStart, VscDebugRestart, VscStopCircle } from "react-icons/vsc";
 
 function Cronometer() {
-    const [seg, setSeg] = useState(58);
     const [timer, setTimer] = useState({ ms: 0, s: 0, m: 0, h: 0 });
     const [displayAlert, setDisplayAlert] = useState({ s: 0, m: 0, h: 0 });
     const [alarm, setalarm] = useState(false);
     const [activo, setActivo] = useState(false);
-    const [tiempoLimite, setTiempoLimite] = useState(300); // 5 minutos en segundos
     const intervalRef = useRef(null);
+
+    useEffect(() => {
+        const minutestoInt = parseFloat(displayAlert.m);
+        const secondosInt = parseFloat(displayAlert.s);
+        const hoursInt = parseFloat(displayAlert.h);
+        if (displayAlert.h !== 0 || displayAlert.m !== 0 || displayAlert.s !== 0) {
+            if (timer.m === minutestoInt && timer.s === secondosInt && timer.h === hoursInt) {
+                setalarm(true)
+            }
+        }
+    }, [timer, displayAlert]);
 
     const initialTime = () => {
         setActivo(true);
@@ -36,32 +45,19 @@ function Cronometer() {
             });
         }, 10);
     }
-
-    const alert = (e, id) => {
-        switch(id) {
-            case 'minutes':
-              return setDisplayAlert(displayAlert.m = e);
-              case 'seconds':
-              return setDisplayAlert(displayAlert.s = e );
-              case 'hours':
-              return setDisplayAlert(displayAlert.h = e );
-            default:
-              return displayAlert;
-          }
-    }
     const stopTime = () => {
         setActivo(false);
         clearInterval(intervalRef.current);
     };
     const reloadTime = () => {
-        setSeg(0);
+        setTimer({ ms: 0, s: 0, m: 0, h: 0 })
         stopTime();
     };
 
     return (
         <div className={style.container}>
             <h1 className={style.title}>Cronometer</h1>
-            <p>Time:{timer.h}:{timer.m}:{timer.s}:{timer.ms}</p>
+            <p className={style.timernumber}>{timer.h}:{timer.m}:{timer.s}:{timer.ms}</p>
             <div className={style.controler}>
                 <div className={style.initstop}>
                     {activo ? (
@@ -75,35 +71,38 @@ function Cronometer() {
                 </div>
             </div>
             <br />
-            <label>
-                Limit time to show alert (hour):
-                <input
-                    type="text"
-                    pattern="^-?[0-9]\d*\.?\d*$"
-                    value={displayAlert.h}
-                    onChange={(e) => alert(e.target.value, 'hours')}
-                />
-            </label>
-            <label>
-                Limit time to show alert (minutes):
-                <input
-                    type="text"
-                    id='minutes'
-                    pattern="^-?[0-9]\d*\.?\d*$"
-                    value={displayAlert.m}
-                    onChange={(e) => alert(e.target.value, 'minutes')}
-                />
-            </label>
-            <label>
-                Limit time to show alert (seg):
-                <input
-                    type="text"
-                    pattern="^-?[0-9]\d*\.?\d*$"
-                    value={displayAlert.s}
-                    onChange={(e) => setTiempoLimite(e.target.value, 'seconds')}
-                />
-            </label>
-            {seg >= tiempoLimite && (
+            <div className={style.form}>
+                <div className={style.text}>
+                    <span className={style.titleTime}>Limit time to show alert (hour):</span>
+                    <span className={style.titleTime}>Limit time to show alert (minutes):</span>
+                    <span className={style.titleTime}>Limit time to show alert (seg):</span>
+                </div>
+                <div className={style.label}>
+                    <input
+                        className={style.input}
+                        type="text"
+                        pattern="^-?[0-9]\d*\.?\d*$"
+                        value={displayAlert.h === 0 ? '' : displayAlert.h}
+                        onChange={(e) => setDisplayAlert((prev) => ({ ...prev, h: e.target.value }))}
+                    />
+                    <input
+                        className={style.input}
+                        type="text"
+                        id='minutes'
+                        pattern="^-?[0-9]\d*\.?\d*$"
+                        value={displayAlert.m === 0 ? '' : displayAlert.m}
+                        onChange={(e) => setDisplayAlert((prev) => ({ ...prev, m: e.target.value }))}
+                    />
+                    <input
+                        className={style.input}
+                        type="text"
+                        pattern="^-?[0-9]\d*\.?\d*$"
+                        value= {displayAlert.s === 0 ? '' : displayAlert.s}
+                        onChange={(e) => setDisplayAlert((prev) => ({ ...prev, s: e.target.value }))}
+                    />
+                </div>
+            </div>
+            {alarm && (
                 <div className="alerta">¡Tiempo límite alcanzado!</div>
             )}
         </div>
